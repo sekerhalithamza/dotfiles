@@ -18,6 +18,7 @@ return {
 					"html",
 					"jsonls",
 					"clangd",
+					"gopls",
 				},
 			})
 		end,
@@ -49,6 +50,9 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig.clangd.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.gopls.setup({
 				capabilities = capabilities,
 			})
 
