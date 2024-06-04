@@ -17,8 +17,6 @@ return {
 					"cssls",
 					"html",
 					"jsonls",
-					"clangd",
-					"gopls",
 				},
 			})
 		end,
