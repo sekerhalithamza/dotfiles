@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Migrating From Version 3.6 to 3.7 &#8212; Polybar User Manual 3.7.1-11-g11b522c3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="polybar(1)" href="../../man/polybar.1.html" />
+    <link rel="prev" title="Polybar Migration Guides" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+
+
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="migrating-from-version-3-6-to-3-7">
+<h1>Migrating From Version 3.6 to 3.7<a class="headerlink" href="#migrating-from-version-3-6-to-3-7" title="Permalink to this headline">¶</a></h1>
+<section id="text-module-custom-text">
+<h2>Text Module (<code class="docutils literal notranslate"><span class="pre">custom/text</span></code>)<a class="headerlink" href="#text-module-custom-text" title="Permalink to this headline">¶</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">content</span></code> to specify the text of the module is deprecated in favor of
+using the same concepts as all other modules (formats and labels).</p>
+<p>For example, the following text module:</p>
+<div class="highlight-dosini notranslate"><div class="highlight"><pre><span></span><span class="k">[module/text]</span><span class="w"></span>
+<span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">custom/text</span><span class="w"></span>
+<span class="na">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Hello World</span><span class="w"></span>
+<span class="na">content-foreground</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">#ff0000</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Should now look like this:</p>
+<div class="highlight-dosini notranslate"><div class="highlight"><pre><span></span><span class="k">[module/text]</span><span class="w"></span>
+<span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">custom/text</span><span class="w"></span>
+<span class="na">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Hello World</span><span class="w"></span>
+<span class="na">label-foreground</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">#ff0000</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Because it is set to its default value, the <code class="docutils literal notranslate"><span class="pre">format</span></code> setting can also be
+completely left out.</p>
+<p>In general, all properties on <code class="docutils literal notranslate"><span class="pre">content</span></code> also apply the same on <code class="docutils literal notranslate"><span class="pre">label</span></code>
+(e.g. <code class="docutils literal notranslate"><span class="pre">background</span></code>, <code class="docutils literal notranslate"><span class="pre">font</span></code>), except for <code class="docutils literal notranslate"><span class="pre">offset</span></code>,
+<code class="docutils literal notranslate"><span class="pre">prefix</span></code>, <code class="docutils literal notranslate"><span class="pre">suffix</span></code> (and their sub-properties).
+Those three properties have to instead be applied to <code class="docutils literal notranslate"><span class="pre">format</span></code> (e.g.
+<code class="docutils literal notranslate"><span class="pre">format-offset</span></code>).</p>
+</section>
+<section id="system-tray">
+<h2>System Tray<a class="headerlink" href="#system-tray" title="Permalink to this headline">¶</a></h2>
+<p>Polybar version 3.7 introduced the new tray module and deprecated the legacy
+tray implementation which uses <code class="docutils literal notranslate"><span class="pre">tray-position</span></code> to position the tray.
+You should switch over to the tray module as soon as possible.</p>
+<p>The legacy tray was configured in the <a class="reference external" href="https://github.com/polybar/polybar/wiki/Configuration#bar-settings">bar section</a>, the
+setting for the module live in that module's section of the config file.
+The settings in the bar section don't always directly correspond to an
+equivalent setting in the module section for the new tray module.</p>
+<p>The following lists how each old setting in the bar section should be migrated:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-position</span></code></dt><dd><p>The tray is now positioned as a module and so its positioning is done by
+placing it where you want it to appear in one of the three module lists
+<code class="docutils literal notranslate"><span class="pre">modules-left</span></code>, <code class="docutils literal notranslate"><span class="pre">modules-center</span></code>, <code class="docutils literal notranslate"><span class="pre">modules-right</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-detached</span></code></dt><dd><p>This setting does not have an equivalent, detaching the tray is no longer
+possible.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-maxsize</span></code></dt><dd><p>The <a class="reference internal" href="../../user/modules/tray.html#poly-setting-tray-size"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-size</span></code></a> setting now determines the size of tray icons.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-transparent</span></code></dt><dd><p>Was already deprecated and does not exist in the tray module.
+Transparency is enabled automatically if a transparent background is used.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-background</span></code></dt><dd><p>Also exists in the module section (see <a class="reference internal" href="../../user/modules/tray.html#poly-setting-tray-background"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-background</span></code></a>). Now,
+the setting only applies to the icons themselves and no longer to the space
+around them.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-foreground</span></code></dt><dd><p>Also exists in the module section with the same functionality (see
+<a class="reference internal" href="../../user/modules/tray.html#poly-setting-tray-foreground"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-foreground</span></code></a>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-offset-x</span></code>, <code class="docutils literal notranslate"><span class="pre">tray-offset-y</span></code></dt><dd><p>Has no direct equivalent in the module settings. Horizontally, the tray can
+be moved in the same way other module content can be moved; by reordering the
+modules or using things like <code class="docutils literal notranslate"><span class="pre">format-offset</span></code>, <code class="docutils literal notranslate"><span class="pre">format-margin</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">format-padding</span></code>.
+The tray can't be moved vertically.</p>
+<p>In any case, the tray can no longer be moved outside of the bar window.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-padding</span></code></dt><dd><p>Spacing between tray icons works a bit different now and needs to be
+completely reconfigured (see <a class="reference internal" href="../../user/modules/tray.html#poly-setting-tray-padding"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-padding</span></code></a> and
+<a class="reference internal" href="../../user/modules/tray.html#poly-setting-tray-spacing"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-spacing</span></code></a>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-scale</span></code></dt><dd><p>No longer exist. The size of the icons is solely determined by
+<a class="reference internal" href="../../user/modules/tray.html#poly-setting-tray-size"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-size</span></code></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Polybar User Manual</a></h1>
+
+
+
+<p class="blurb">3.7.1-11-g11b522c3</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/ipc.html">Inter-process-messaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/fonts/index.html">Fonts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/default-config.html">Default Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Polybar Migration Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manual Pages:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../man/polybar.1.html">polybar(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../man/polybar-msg.1.html">polybar-msg(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../man/polybar.5.html">polybar(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Contributors:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/packaging.html">Packaging Polybar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/release-workflow.html">Release Workflow</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Polybar Migration Guides</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Polybar Migration Guides</a></li>
+      <li>Next: <a href="../../man/polybar.1.html" title="next chapter">polybar(1)</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016-2024, Michael Carlberg & contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/migration/3.7/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

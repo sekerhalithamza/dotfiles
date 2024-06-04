@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Inter-process-messaging &#8212; Polybar User Manual 3.7.1-11-g11b522c3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modules" href="modules/index.html" />
+    <link rel="prev" title="Actions" href="actions.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+
+
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="inter-process-messaging">
+<h1>Inter-process-messaging<a class="headerlink" href="#inter-process-messaging" title="Permalink to this headline">¶</a></h1>
+<p>Polybar supports controlling parts of the bar and its modules from the outside
+through inter-process-messaging (IPC).</p>
+<p>IPC is disabled by default and can be enabled by setting <code class="docutils literal notranslate"><span class="pre">enable-ipc</span> <span class="pre">=</span> <span class="pre">true</span></code>
+in the bar section.</p>
+<p>By default polybar ships with the <code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> tool that is needed to send
+messages to polybar.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting with version 3.6.0, the underlying IPC mechanism has been
+completely changed.</p>
+<p>Writing directly to the named pipe to send IPC messages has been
+deprecated, <code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> should be used exclusively
+Everything you could do by directly writing to the named pipe, you
+can also do using <code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code>.
+In addition, hook messages are also deprecated; they are replaced by
+actions on the <a class="reference internal" href="actions.html#actions-ipc"><span class="std std-ref">ipc module</span></a>.</p>
+<p>Unless noted otherwise, everything in this guide is still valid for
+older versions.</p>
+</div>
+<section id="sending-messages">
+<h2>Sending Messages<a class="headerlink" href="#sending-messages" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> can be called on the commandline like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>polybar-msg <span class="o">[</span>-p &lt;pid&gt;<span class="o">]</span> &lt;type&gt; &lt;payload&gt;
+</pre></div>
+</div>
+<p>If the <code class="docutils literal notranslate"><span class="pre">-p</span></code> argument is specified, the message is only sent to the running
+polybar instance with the given process ID.
+Otherwise, the message is sent to all running polybar processes that have IPC
+enabled.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>IPC messages are only sent to polybar instances running under the
+same user as <code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> is running as.</p>
+<p>Concretely, <code class="docutils literal notranslate"><span class="pre">polybar</span></code> and <code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> use the
+<code class="docutils literal notranslate"><span class="pre">$XDG_RUNTIME_DIR</span></code> environment variable in accordance with the <a class="reference external" href="https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG
+Base Directory Specification</a> to determine where to find the socket
+to communicate.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">polybar</span></code> and <code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> don't have the same value for
+<code class="docutils literal notranslate"><span class="pre">$XDG_RUNTIME_DIR</span></code>, they will likely not be able to communicate.
+The variable may not be set if you use <code class="docutils literal notranslate"><span class="pre">su</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to execute
+<code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> as a different user, often a full user session is
+required.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> argument is either <a class="reference internal" href="#ipc-actions"><span class="std std-ref">action</span></a> or
+<a class="reference internal" href="#ipc-commands"><span class="std std-ref">cmd</span></a>.
+The allowed values for <code class="docutils literal notranslate"><span class="pre">&lt;payload&gt;</span></code> depend on the type.</p>
+</section>
+<section id="message-types">
+<h2>Message Types<a class="headerlink" href="#message-types" title="Permalink to this headline">¶</a></h2>
+<section id="commands">
+<span id="ipc-commands"></span><h3>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h3>
+<p>Using <code class="docutils literal notranslate"><span class="pre">cmd</span></code> for <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code>, you can control certain aspects of the bar.</p>
+<p>Available values for <code class="docutils literal notranslate"><span class="pre">&lt;payload&gt;</span></code> are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">quit</span></code>: Terminates the bar</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">restart</span></code>: Restarts the bar in-place</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hide</span></code>: Hides the bar</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">show</span></code>: Makes the bar visible again, if it was hidden</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">toggle</span></code>: Toggles between the hidden and visible state.</p></li>
+</ul>
+</section>
+<section id="module-actions">
+<span id="ipc-actions"></span><h3>Module Actions<a class="headerlink" href="#module-actions" title="Permalink to this headline">¶</a></h3>
+<p>For the <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> <code class="docutils literal notranslate"><span class="pre">action</span></code>, <code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> can execute
+<a class="reference internal" href="actions.html"><span class="doc">module actions</span></a> in the bar.</p>
+<p>An action consists of the name of the target module, the name of the action and an optional data string:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#&lt;modulename&gt;.&lt;actionname&gt;[.&lt;data&gt;]
+</pre></div>
+</div>
+<p>More information about action strings and available actions can be found in
+<a class="reference internal" href="actions.html"><span class="doc">Actions</span></a></p>
+<p>For example, if you have a date module named <code class="docutils literal notranslate"><span class="pre">date</span></code>, you can toggle between
+the regular and alternative label with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>polybar-msg action <span class="s2">&quot;#date.toggle&quot;</span>
+</pre></div>
+</div>
+<p>As an example for an action with data, say you have a menu module named
+<code class="docutils literal notranslate"><span class="pre">powermenu</span></code>, you can open the menu level 0 using:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>polybar-msg action <span class="s2">&quot;#powermenu.open.0&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For convenience, <code class="docutils literal notranslate"><span class="pre">polybar-msg</span></code> also allows you to pass the module name,
+action name, and data as separate arguments:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>polybar-msg action date toggle
+polybar-msg action powermenu open <span class="m">0</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.0.</span></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Polybar User Manual</a></h1>
+
+
+
+<p class="blurb">3.7.1-11-g11b522c3</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Inter-process-messaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fonts/index.html">Fonts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="default-config.html">Default Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration/index.html">Polybar Migration Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manual Pages:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../man/polybar.1.html">polybar(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/polybar-msg.1.html">polybar-msg(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/polybar.5.html">polybar(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Contributors:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/packaging.html">Packaging Polybar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-workflow.html">Release Workflow</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="actions.html" title="previous chapter">Actions</a></li>
+      <li>Next: <a href="modules/index.html" title="next chapter">Modules</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016-2024, Michael Carlberg & contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/user/ipc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>polybar(1) &#8212; Polybar User Manual 3.7.1-11-g11b522c3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="polybar-msg(1)" href="polybar-msg.1.html" />
+    <link rel="prev" title="Migrating From Version 3.6 to 3.7" href="../migration/3.7/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+
+
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="polybar-1">
+<h1>polybar(1)<a class="headerlink" href="#polybar-1" title="Permalink to this headline">¶</a></h1>
+<section id="synopsis">
+<h2>SYNOPSIS<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<p><strong>polybar</strong> [<em>OPTIONS</em>]... [<em>BAR</em>]</p>
+</section>
+<section id="description">
+<h2>DESCRIPTION<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Polybar aims to help users build beautiful and highly customizable status bars for their desktop environment, without the need of having a black belt in shell scripting.
+If the <em>BAR</em> argument is not provided and the configuration file only contains one bar definition, polybar will display this bar.</p>
+</section>
+<section id="options">
+<h2>OPTIONS<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-h">
+<span id="cmdoption-polybar-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display help text and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-v">
+<span id="cmdoption-polybar-version"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display build details and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-l">
+<span id="cmdoption-polybar-log"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--log</span></span><span class="sig-prename descclassname"><span class="pre">=LEVEL</span></span><a class="headerlink" href="#cmdoption-polybar-l" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Set the logging verbosity (default: <strong>notice</strong>)</div>
+<div class="line"><em>LEVEL</em> is one of: error, warning, notice, info, trace</div>
+</div>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-q">
+<span id="cmdoption-polybar-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Be quiet (will override -l)</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-c">
+<span id="cmdoption-polybar-config"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"><span class="pre">=FILE</span></span><a class="headerlink" href="#cmdoption-polybar-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the path to the configuration file. By default, the configuration file is loaded from:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME/polybar/config</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME/polybar/config.ini</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$HOME/.config/polybar/config</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$HOME/.config/polybar/config.ini</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_DIRS/polybar/config.ini</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/xdg/polybar/config.ini</span></code> (only if <code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_DIRS</span></code> is not set)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/polybar/config.ini</span></code></p></li>
+</ul>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-r">
+<span id="cmdoption-polybar-reload"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--reload</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the application when the config file has been modified</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-d">
+<span id="cmdoption-polybar-dump"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--dump</span></span><span class="sig-prename descclassname"><span class="pre">=PARAM</span></span><a class="headerlink" href="#cmdoption-polybar-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the value of the specified parameter <em>PARAM</em> in bar section and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-m">
+<span id="cmdoption-polybar-list-monitors"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--list-monitors</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-m" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Print list of available monitors and exit.</div>
+<div class="line">If some monitors are cloned, this will exclude all but one of them.</div>
+<div class="line">If polybar was compiled with RandR monitor support, only monitors are listed and not physical outputs.</div>
+</div>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-M">
+<span id="cmdoption-polybar-list-all-monitors"></span><span class="sig-name descname"><span class="pre">-M</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--list-all-monitors</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-M" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Print list of all available monitors and exit.</div>
+<div class="line">This includes cloned monitors as well as both physical outputs and RandR monitors (if supported).</div>
+<div class="line">Only the names listed here can be used as monitor names in polybar.</div>
+</div>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-w">
+<span id="cmdoption-polybar-print-wmname"></span><span class="sig-name descname"><span class="pre">-w</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--print-wmname</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the generated <em>WM_NAME</em> and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-s">
+<span id="cmdoption-polybar-stdout"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--stdout</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output the data to stdout instead of drawing it to the X window</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-p">
+<span id="cmdoption-polybar-png"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--png</span></span><span class="sig-prename descclassname"><span class="pre">=FILE</span></span><a class="headerlink" href="#cmdoption-polybar-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save png snapshot to <em>FILE</em> after running for 3 seconds</p>
+</dd></dl>
+
+</section>
+<section id="authors">
+<h2>AUTHORS<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Polybar was created by Michael Carlberg and is currently maintained by Patrick Ziegler.</div>
+<div class="line">Contributors can be listed on GitHub.</div>
+</div>
+</section>
+<section id="reporting-bugs">
+<h2>REPORTING BUGS<a class="headerlink" href="#reporting-bugs" title="Permalink to this headline">¶</a></h2>
+<p>Report issues on GitHub &lt;<a class="reference external" href="https://github.com/polybar/polybar">https://github.com/polybar/polybar</a>&gt;</p>
+</section>
+<section id="see-also">
+<h2>SEE ALSO<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="polybar-msg.1.html"><span class="doc">polybar-msg(1)</span></a>,
+<a class="reference internal" href="polybar.5.html"><span class="doc">polybar(5)</span></a></p>
+<div class="line-block">
+<div class="line">Full documentation at: &lt;<a class="reference external" href="https://github.com/polybar/polybar">https://github.com/polybar/polybar</a>&gt;</div>
+<div class="line">Project wiki: &lt;<a class="reference external" href="https://github.com/polybar/polybar/wiki">https://github.com/polybar/polybar/wiki</a>&gt;</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Polybar User Manual</a></h1>
+
+
+
+<p class="blurb">3.7.1-11-g11b522c3</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/ipc.html">Inter-process-messaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/fonts/index.html">Fonts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/default-config.html">Default Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration/index.html">Polybar Migration Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manual Pages:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">polybar(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polybar-msg.1.html">polybar-msg(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polybar.5.html">polybar(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Contributors:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/packaging.html">Packaging Polybar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-workflow.html">Release Workflow</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../migration/3.7/index.html" title="previous chapter">Migrating From Version 3.6 to 3.7</a></li>
+      <li>Next: <a href="polybar-msg.1.html" title="next chapter">polybar-msg(1)</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016-2024, Michael Carlberg & contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/man/polybar.1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

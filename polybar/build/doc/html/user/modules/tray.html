@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tray Module &#8212; Polybar User Manual 3.7.1-11-g11b522c3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Fonts" href="../fonts/index.html" />
+    <link rel="prev" title="Modules" href="index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+
+
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tray-module">
+<h1>Tray Module<a class="headerlink" href="#tray-module" title="Permalink to this headline">¶</a></h1>
+<dl class="std poly-setting">
+<dt class="sig sig-object std" id="poly-setting-type-internal-tray">
+<span id="poly-setting-type = internal/tray"></span><span class="sig-name descname"><span class="pre">type</span> <span class="pre">=</span> <span class="pre">internal/tray</span></span><a class="headerlink" href="#poly-setting-type-internal-tray" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.7.0.</span></p>
+</div>
+<p>The tray module displays system tray application icons on the bar.</p>
+<p>This module is a bit different from the other modules.
+The tray icons (also called clients) are individual windows managed by their
+respective application (e.g. the Dropbox tray icon is created and managed by
+the Dropbox application).
+Polybar is only responsible for embedding the windows in the bar and
+positioning them correctly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only a single instance of this module can be active at the same time (across
+all polybar instances).</p>
+<p>The way the <a class="reference external" href="https://specifications.freedesktop.org/systemtray-spec/systemtray-spec-latest.html">system tray protocol</a> works, at most one tray
+can exist at any time.
+Polybar will produce a warning if additional tray instances are created.</p>
+</div>
+<p>For transparent background colors, the tray will use pseudo-transparency, true
+transparency is not possible for the tray icons.</p>
+<section id="formats">
+<h2>Formats<a class="headerlink" href="#formats" title="Permalink to this headline">¶</a></h2>
+<p>The module only has a single format:</p>
+<dl class="std poly-setting">
+<dt class="sig sig-object std" id="poly-setting-format">
+<span class="sig-name descname"><span class="pre">format</span></span><a class="headerlink" href="#poly-setting-format" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/polybar/polybar/wiki/Formatting#formats">format</a></p>
+</dd>
+<dt class="field-even">Available Tags</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&lt;tray&gt;</span></code>: Shows tray icons</p>
+</dd>
+<dt class="field-odd">Default Value</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">&lt;tray&gt;</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<dl class="std poly-setting">
+<dt class="sig sig-object std" id="poly-setting-tray-spacing">
+<span class="sig-name descname"><span class="pre">tray-spacing</span></span><a class="headerlink" href="#poly-setting-tray-spacing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Space added between tray icons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/polybar/polybar/wiki/Formatting#extent">extent</a>, non-negative</p>
+</dd>
+<dt class="field-even">Default Value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0px</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std poly-setting">
+<dt class="sig sig-object std" id="poly-setting-tray-padding">
+<span class="sig-name descname"><span class="pre">tray-padding</span></span><a class="headerlink" href="#poly-setting-tray-padding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Space added before and after each tray icon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/polybar/polybar/wiki/Formatting#extent">extent</a>, non-negative</p>
+</dd>
+<dt class="field-even">Default Value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0px</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std poly-setting">
+<dt class="sig sig-object std" id="poly-setting-tray-size">
+<span class="sig-name descname"><span class="pre">tray-size</span></span><a class="headerlink" href="#poly-setting-tray-size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Size of individual tray icons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/polybar/polybar/wiki/Formatting#percentage-with-offset">percentage with offset</a>, relative to bar height, non-negative</p>
+</dd>
+<dt class="field-even">Default Value</dt>
+<dd class="field-even"><p>66%</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std poly-setting">
+<dt class="sig sig-object std" id="poly-setting-tray-background">
+<span class="sig-name descname"><span class="pre">tray-background</span></span><a class="headerlink" href="#poly-setting-tray-background" title="Permalink to this definition">¶</a></dt>
+<dd><p>Background color of tray icons</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This only affects the color of the individual icons and not the space in
+between, changing this setting to anything else than the bar background
+will likely not look good unless the background color is also changed for
+the rest of the tray module (e.g. with <code class="docutils literal notranslate"><span class="pre">format-background</span></code>).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>color</p>
+</dd>
+<dt class="field-even">Default Value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">${root.background}</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std poly-setting">
+<dt class="sig sig-object std" id="poly-setting-tray-foreground">
+<span class="sig-name descname"><span class="pre">tray-foreground</span></span><a class="headerlink" href="#poly-setting-tray-foreground" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tray icon color</p>
+<p>This serves as a hint to the tray icon application for which color to use for
+the icon.</p>
+<p>This is not guaranteed to have any effect (likely only in GTK3) because it
+targets a non-standard part of the <a class="reference external" href="https://specifications.freedesktop.org/systemtray-spec/systemtray-spec-latest.html">system tray protocol</a> by
+setting the <code class="docutils literal notranslate"><span class="pre">_NET_SYSTEM_TRAY_COLORS</span></code> atom on the tray window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>color</p>
+</dd>
+<dt class="field-even">Default Value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">${tray-foreground}</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[module/tray]</span><span class="w"></span>
+<span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">internal/tray</span><span class="w"></span>
+
+<span class="na">format-margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">8px</span><span class="w"></span>
+<span class="na">tray-spacing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">8px</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="migrating-from-legacy-tray-implementation">
+<h2>Migrating From Legacy Tray Implementation<a class="headerlink" href="#migrating-from-legacy-tray-implementation" title="Permalink to this headline">¶</a></h2>
+<p>Polybar version 3.7 introduced the new tray module and deprecated the legacy
+tray implementation which uses <code class="docutils literal notranslate"><span class="pre">tray-position</span></code> to position the tray.
+You should switch over to the tray module as soon as possible.</p>
+<p>The legacy tray was configured in the <a class="reference external" href="https://github.com/polybar/polybar/wiki/Configuration#bar-settings">bar section</a>, the
+setting for the module live in that module's section of the config file.
+The settings in the bar section don't always directly correspond to an
+equivalent setting in the module section for the new tray module.</p>
+<p>The following lists how each old setting in the bar section should be migrated:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-position</span></code></dt><dd><p>The tray is now positioned as a module and so its positioning is done by
+placing it where you want it to appear in one of the three module lists
+<code class="docutils literal notranslate"><span class="pre">modules-left</span></code>, <code class="docutils literal notranslate"><span class="pre">modules-center</span></code>, <code class="docutils literal notranslate"><span class="pre">modules-right</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-detached</span></code></dt><dd><p>This setting does not have an equivalent, detaching the tray is no longer
+possible.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-maxsize</span></code></dt><dd><p>The <a class="reference internal" href="#poly-setting-tray-size"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-size</span></code></a> setting now determines the size of tray icons.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-transparent</span></code></dt><dd><p>Was already deprecated and does not exist in the tray module.
+Transparency is enabled automatically if a transparent background is used.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-background</span></code></dt><dd><p>Also exists in the module section (see <a class="reference internal" href="#poly-setting-tray-background"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-background</span></code></a>). Now,
+the setting only applies to the icons themselves and no longer to the space
+around them.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-foreground</span></code></dt><dd><p>Also exists in the module section with the same functionality (see
+<a class="reference internal" href="#poly-setting-tray-foreground"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-foreground</span></code></a>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-offset-x</span></code>, <code class="docutils literal notranslate"><span class="pre">tray-offset-y</span></code></dt><dd><p>Has no direct equivalent in the module settings. Horizontally, the tray can
+be moved in the same way other module content can be moved; by reordering the
+modules or using things like <code class="docutils literal notranslate"><span class="pre">format-offset</span></code>, <code class="docutils literal notranslate"><span class="pre">format-margin</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">format-padding</span></code>.
+The tray can't be moved vertically.</p>
+<p>In any case, the tray can no longer be moved outside of the bar window.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-padding</span></code></dt><dd><p>Spacing between tray icons works a bit different now and needs to be
+completely reconfigured (see <a class="reference internal" href="#poly-setting-tray-padding"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-padding</span></code></a> and
+<a class="reference internal" href="#poly-setting-tray-spacing"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-spacing</span></code></a>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tray-scale</span></code></dt><dd><p>No longer exist. The size of the icons is solely determined by
+<a class="reference internal" href="#poly-setting-tray-size"><code class="xref std std-poly-setting docutils literal notranslate"><span class="pre">tray-size</span></code></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://specifications.freedesktop.org/systemtray-spec/systemtray-spec-latest.html">System Tray Protocol Specification</a></p></li>
+<li><p><a class="reference external" href="https://specifications.freedesktop.org/xembed-spec/xembed-spec-latest.html">XEmbed Protocol Specification</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Polybar User Manual</a></h1>
+
+
+
+<p class="blurb">3.7.1-11-g11b522c3</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ipc.html">Inter-process-messaging</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts/index.html">Fonts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../default-config.html">Default Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migration/index.html">Polybar Migration Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manual Pages:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../man/polybar.1.html">polybar(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../man/polybar-msg.1.html">polybar-msg(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../man/polybar.5.html">polybar(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Contributors:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/packaging.html">Packaging Polybar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/release-workflow.html">Release Workflow</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Modules</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Modules</a></li>
+      <li>Next: <a href="../fonts/index.html" title="next chapter">Fonts</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016-2024, Michael Carlberg & contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/user/modules/tray.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

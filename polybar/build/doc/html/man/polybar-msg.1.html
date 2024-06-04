@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>polybar-msg(1) &#8212; Polybar User Manual 3.7.1-11-g11b522c3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="polybar(5)" href="polybar.5.html" />
+    <link rel="prev" title="polybar(1)" href="polybar.1.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+
+
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="polybar-msg-1">
+<h1>polybar-msg(1)<a class="headerlink" href="#polybar-msg-1" title="Permalink to this headline">¶</a></h1>
+<section id="synopsis">
+<h2>SYNOPSIS<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>polybar-msg</strong> [<em>OPTIONS</em>] <strong>action</strong> <em>action-string</em></div>
+<div class="line"><strong>polybar-msg</strong> [<em>OPTIONS</em>] <strong>action</strong> <em>module</em> <em>action</em> [<em>data</em>]</div>
+<div class="line"><strong>polybar-msg</strong> [<em>OPTIONS</em>] <strong>cmd</strong> <em>command</em></div>
+</div>
+</section>
+<section id="description">
+<h2>DESCRIPTION<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Polybar allows external control through <em>actions</em> and <em>commands</em>.
+Actions control individual modules and commands control the bar itself.</p>
+<p>The full IPC documentation is linked at the end of this document.</p>
+<p>The available actions depend on the target module.
+For actions, the payload is either a single action string or the module name,
+the action name, and the optional data string specified separately.</p>
+<p>In order for <strong>polybar-msg</strong> being able to send a message to a running
+<strong>polybar</strong> process, the bar must have IPC enabled and both <strong>polybar-msg</strong> and
+<strong>polybar</strong> must run under the same user.</p>
+</section>
+<section id="options">
+<h2>OPTIONS<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-msg-h">
+<span id="cmdoption-polybar-msg-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-polybar-msg-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display help text and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-polybar-msg-p">
+<span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"> <span class="pre">PID</span></span><a class="headerlink" href="#cmdoption-polybar-msg-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send message only to <strong>polybar</strong> process running under the given process ID.
+If not specified, the message is sent to all running <strong>polybar</strong> processes.</p>
+</dd></dl>
+
+</section>
+<section id="examples">
+<h2>EXAMPLES<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><strong>polybar-msg</strong> <strong>cmd</strong> <em>quit</em></dt><dd><p>Terminate all running <strong>polybar</strong> instances.</p>
+</dd>
+</dl>
+<p><strong>polybar-msg</strong> <strong>action</strong> <em>mymodule</em> <em>module_hide</em></p>
+<dl class="simple">
+<dt><strong>polybar-msg</strong> <strong>action</strong> &quot;<em>#mymodule.module_hide</em>&quot;</dt><dd><p>Hide the module named <em>mymodule</em>.
+The first variant specifies the module and action names separately, the second uses an action string.</p>
+</dd>
+</dl>
+</section>
+<section id="authors">
+<h2>AUTHORS<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Polybar was created by Michael Carlberg and is currently maintained by Patrick Ziegler.</div>
+<div class="line">Contributors can be listed on GitHub.</div>
+</div>
+</section>
+<section id="reporting-bugs">
+<h2>REPORTING BUGS<a class="headerlink" href="#reporting-bugs" title="Permalink to this headline">¶</a></h2>
+<p>Report issues on GitHub &lt;<a class="reference external" href="https://github.com/polybar/polybar">https://github.com/polybar/polybar</a>&gt;</p>
+</section>
+<section id="see-also">
+<h2>SEE ALSO<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="polybar.1.html"><span class="doc">polybar(1)</span></a>,
+<a class="reference internal" href="polybar.5.html"><span class="doc">polybar(5)</span></a></p>
+<p><a class="reference internal" href="../user/ipc.html"><span class="doc">Inter-process-messaging</span></a></p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Polybar User Manual</a></h1>
+
+
+
+<p class="blurb">3.7.1-11-g11b522c3</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/ipc.html">Inter-process-messaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/fonts/index.html">Fonts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/default-config.html">Default Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration/index.html">Polybar Migration Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manual Pages:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="polybar.1.html">polybar(1)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">polybar-msg(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polybar.5.html">polybar(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Contributors:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/packaging.html">Packaging Polybar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-workflow.html">Release Workflow</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="polybar.1.html" title="previous chapter">polybar(1)</a></li>
+      <li>Next: <a href="polybar.5.html" title="next chapter">polybar(5)</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016-2024, Michael Carlberg & contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/man/polybar-msg.1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

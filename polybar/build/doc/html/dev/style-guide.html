@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Style Guide &#8212; Polybar User Manual 3.7.1-11-g11b522c3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing" href="testing.html" />
+    <link rel="prev" title="Getting Started" href="getting-started.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+
+
+
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="style-guide">
+<h1>Style Guide<a class="headerlink" href="#style-guide" title="Permalink to this headline">¶</a></h1>
+<p>There is a <code class="docutils literal notranslate"><span class="pre">.editorconfig</span></code> and a <code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> file in the project root
+that defines some basic guidelines, mainly relating to indentation.</p>
+<section id="code-formatting">
+<h2>Code Formatting<a class="headerlink" href="#code-formatting" title="Permalink to this headline">¶</a></h2>
+<p>We use <code class="docutils literal notranslate"><span class="pre">clang-format</span></code> for code formatting, the style rules are defined in
+<code class="docutils literal notranslate"><span class="pre">.clang-format</span></code>, before submitting a PR, make sure to run the following command
+on all the C++ files you changed:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>clang-format -style<span class="o">=</span>file -i &lt;FILES&gt;
+</pre></div>
+</div>
+<p><strong>Note:</strong> Depending on which file you change, this may produce a lot of changes
+because we have not run <code class="docutils literal notranslate"><span class="pre">clang-format</span></code> on all files in the project. This is
+fine.</p>
+<section id="indentation">
+<h3>Indentation<a class="headerlink" href="#indentation" title="Permalink to this headline">¶</a></h3>
+<p>Files use 2 spaces for indentation.</p>
+</section>
+<section id="line-width">
+<h3>Line Width<a class="headerlink" href="#line-width" title="Permalink to this headline">¶</a></h3>
+<p>Lines should not be longer than 120 characters, <code class="docutils literal notranslate"><span class="pre">clang-format</span></code> will enforce
+this when run. However, try to keep lines under 80 characters if it seems
+reasonable in the current situation.</p>
+<p>In some cases it makes sense to have lines longer than 80 characters for
+readability. But long lines can just the same be unreadable, for example if you
+have long if-conditions or use complex expressions as function parameters. Make
+sure you only use longer lines if keeping it under 80 would be less readable.</p>
+</section>
+</section>
+<section id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>Use Doxygen <code class="docutils literal notranslate"><span class="pre">/**</span> <span class="pre">*/</span></code> comments in front of functions, methods, types, members and
+classes:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @brief Generates a config object from a config file</span>
+<span class="cm"> *</span>
+<span class="cm"> * For modularity the parsing and storing of the config is separated</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">config_parser</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * @brief Is used to resolve ${root...} references</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="n">m_barname</span><span class="p">;</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>For all other comments use <code class="docutils literal notranslate"><span class="pre">//</span></code> for single-line and <code class="docutils literal notranslate"><span class="pre">/*</span> <span class="pre">*/</span></code> for multi-line comments.</p>
+<p>Your comments should describe the intent and purpose of your code, not necessarily what it does.</p>
+</section>
+<section id="header-files">
+<h2>Header Files<a class="headerlink" href="#header-files" title="Permalink to this headline">¶</a></h2>
+<p>Header files should end in <code class="docutils literal notranslate"><span class="pre">.hpp</span></code>.</p>
+<p>We use pragmas instead of include guards to guarantee header files are included
+only once:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Polybar User Manual</a></h1>
+
+
+
+<p class="blurb">3.7.1-11-g11b522c3</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/ipc.html">Inter-process-messaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/fonts/index.html">Fonts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/default-config.html">Default Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration/index.html">Polybar Migration Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manual Pages:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../man/polybar.1.html">polybar(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/polybar-msg.1.html">polybar-msg(1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/polybar.5.html">polybar(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Contributors:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging Polybar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-workflow.html">Release Workflow</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="getting-started.html" title="previous chapter">Getting Started</a></li>
+      <li>Next: <a href="testing.html" title="next chapter">Testing</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016-2024, Michael Carlberg & contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/dev/style-guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
