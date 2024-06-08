@@ -201,4 +201,4 @@ bindsym Shift+Print exec maim --format=jpg --select "/home/$USER/Pictures/$(date
 ## Clipboard Screenshots
 bindsym Ctrl+Print exec maim --format=jpg | xclip -selection clipboard -t image/png
 bindsym Ctrl+$mod+Print exec maim --format=jpg --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Ctrl+Shift+Print exec maim --format=jpg --select | xclip -selection clipboard -t image/png
+bindsym $mod+Shift+s exec maim --format=jpg --select | xclip -selection clipboard -t image/png
