@@ -16,6 +16,7 @@ return {
 				null_ls.builtins.formatting.gofmt,
 				null_ls.builtins.formatting.goimports_reviser,
 				null_ls.builtins.formatting.golines,
+				null_ls.builtins.formatting.gomodifytags,
 				require("none-ls.diagnostics.eslint_d"),
 				null_ls.builtins.diagnostics.clang_format,
 				require("none-ls.code_actions.eslint_d"),

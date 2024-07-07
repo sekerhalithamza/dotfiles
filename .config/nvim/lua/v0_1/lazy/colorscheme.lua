@@ -16,9 +16,6 @@ end
 return {
 	{
 		"EdenEast/nightfox.nvim",
-		config = function()
-			vim.cmd.colorscheme("carbonfox")
-		end,
 	},
 	{
 		"navarasu/onedark.nvim",
@@ -38,6 +35,9 @@ return {
 	},
 	{
 		"rebelot/kanagawa.nvim",
+		config = function()
+			vim.cmd.colorscheme("kanagawa-dragon")
+		end
 	},
 	{
 		"catppuccin/nvim",
